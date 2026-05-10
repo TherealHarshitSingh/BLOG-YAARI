@@ -1,62 +1,182 @@
-<<<<<<< HEAD
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# BlogYaari — Blog Management System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Why I Built It This Way
 
-## About Laravel
+I come from a Node.js and Express background. When I received this assignment, I had no prior PHP or Laravel experience. Instead of pretending otherwise, I made a deliberate choice — I would use my existing knowledge of backend architecture, MVC patterns, and database design to drive the project, and use AI as a syntax assistant for PHP, the same way any developer uses documentation.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Every architectural decision in this project — the database schema, the route structure, the authentication flow, the AJAX filtering logic — was planned by me first, mapped from concepts I already understood in Express, and then implemented in Laravel. I believe this is how modern developers actually work, and I wanted to be transparent about that.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+The result is a fully functional, deployed Blog Management System that meets every requirement in the assignment. I also believe this approach shows something more valuable than memorized syntax — it shows how I think, how I adapt, and how I ship.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## Live Demo
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- Website: https://your-live-url.infinityfreeapp.com
+- Admin Panel: https://your-live-url.infinityfreeapp.com/admin
+- Admin Email: admin@blogyaari.com
+- Admin Password: admin123
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+## Features
 
-## Agentic Development
+**User Side**
+- View all blogs on the home page, fetched dynamically from the database
+- Filter blogs by category (Admit Card, Result, Other) using AJAX — no page reload
+- Filter blogs by date using AJAX — no page reload
+- Search blogs by title in real time
+- Read full blog articles with rich text content
+- Upvote blogs without page reload (AJAX)
+- Comment on blogs when logged in
+- Register and login with email and password
+- View and update your profile (name, username, email)
+- Create, edit, and delete your own blog posts
+- Rich text editor (Quill.js) for formatting posts with bold, italic, lists, and images
+- View your post performance — upvote count and comment count per post
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+**Admin Side**
+- Separate admin panel accessible only to admin users
+- Dashboard showing total blogs, users, and comments
+- View and delete any blog post on the platform
+- Admin role assigned via database (is_admin flag)
 
-```bash
-composer require laravel/boost --dev
+---
 
-php artisan boost:install
+## Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Backend | PHP 8.3, Laravel 13 |
+| Database | MySQL 8.0 |
+| Frontend | Blade Templates, Tailwind CSS (CDN) |
+| Interactivity | jQuery, AJAX |
+| Rich Editor | Quill.js (CDN) |
+| Auth | Custom (no Breeze — needed username + admin role) |
+| Deployment | InfinityFree |
+| Version Control | Git + GitHub |
+
+---
+
+## Database Schema
+
+**users** — id, name, username, email, password, is_admin, timestamps
+
+**blogs** — id, user_id, title, short_description, content, image, category, other_category, published_date, upvotes, timestamps
+
+**comments** — id, blog_id, user_id, text, timestamps
+
+---
+
+## Project Structure
+
+```
+blog-system/
+├── app/
+│   ├── Http/
+│   │   ├── Controllers/
+│   │   │   ├── BlogController.php
+│   │   │   ├── CommentController.php
+│   │   │   ├── AdminController.php
+│   │   │   ├── ProfileController.php
+│   │   │   └── Auth/
+│   │   │       ├── LoginController.php
+│   │   │       └── RegisterController.php
+│   │   └── Middleware/
+│   │       └── AdminMiddleware.php
+│   └── Models/
+│       ├── Blog.php
+│       ├── Comment.php
+│       └── User.php
+├── database/migrations/
+├── resources/views/
+│   ├── layouts/app.blade.php
+│   ├── auth/
+│   ├── blogs/
+│   ├── profile/
+│   └── admin/
+└── routes/web.php
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+---
 
-## Contributing
+## Local Setup
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Requirements
+- PHP 8.3
+- Composer
+- MySQL
 
-## Code of Conduct
+### Steps
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/blog-system.git
+cd blog-system
 
-## Security Vulnerabilities
+# Install dependencies
+composer install
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+# Copy environment file
+cp .env.example .env
 
-## License
+# Generate app key
+php artisan key:generate
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-=======
-# BLOG-YAARI
->>>>>>> 212538621c85d891d5f6152123a99f5786fcebb8
+# Configure your database in .env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=blog_system
+DB_USERNAME=root
+DB_PASSWORD=
+
+# Run migrations
+php artisan migrate
+
+# Link storage for image uploads
+php artisan storage:link
+
+# Start the server
+php artisan serve
+```
+
+Then open `http://127.0.0.1:8000` in your browser.
+
+### Creating an Admin User
+
+```bash
+php artisan tinker
+```
+
+```php
+$user = App\Models\User::where('email', 'your@email.com')->first();
+$user->is_admin = true;
+$user->save();
+```
+
+---
+
+## AJAX Implementation
+
+The filter and search on the home page uses jQuery AJAX to fetch filtered results from the backend without any page reload. This was a core requirement and is implemented in `blogs/index.blade.php`:
+
+- Category filter triggers an AJAX GET request to `/blogs/filter`
+- Date filter triggers the same endpoint with a date parameter
+- Search input triggers the request after a 500ms debounce
+- The backend `BlogController@filter` method queries the database and returns JSON
+- jQuery replaces the blog grid HTML with the new results
+
+The upvote button on the blog detail page also uses AJAX POST to increment the count without reload.
+
+---
+
+## What I Learned
+
+This project taught me that the fundamentals of backend development transfer across languages. Routes, controllers, middleware, ORM queries, authentication — these exist in Express and in Laravel. The concepts are identical, only the syntax differs. Given more time, I plan to go deeper into core PHP and Laravel internals. I am confident I can do that within a week of joining.
+
+---
+
+## Author
+
+Built by Harshit Singh for the JobYaari PHP/Laravel Developer Intern Assessment.
